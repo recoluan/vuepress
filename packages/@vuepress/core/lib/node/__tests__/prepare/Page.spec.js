@@ -111,11 +111,11 @@ describe('Page', () => {
       page = new Page({ path: '/' }, app)
       enhancers = [
         {
-          pluginName: 'foo',
+          name: 'foo',
           value: jest.fn()
         },
         {
-          pluginName: 'foo',
+          name: 'bar',
           value: jest.fn()
         }
       ]
@@ -130,7 +130,7 @@ describe('Page', () => {
 
     test('should loop over sync and async enhancers', async () => {
       const mixedEnhancers = [...enhancers, {
-        pluginName: 'blog',
+        name: 'blog',
         value: jest.fn().mockResolvedValue({})
       }]
       await page.enhance(mixedEnhancers)
@@ -138,18 +138,16 @@ describe('Page', () => {
       return mixedEnhancers.map(enhancer => expect(enhancer.value).toHaveBeenCalled())
     })
 
-    test('should log when enhancing when failing', async () => {
+    test('should log and throw an error when enhancing fails', async () => {
       const error = { errorMessage: 'this is an error message' }
-      expect.assertions(1)
-      try {
-        await page.enhance([{
-          pluginName: 'error-plugin',
-          value: jest.fn().mockRejectedValue(error)
-        }])
-      } catch (e) {
-        expect(console.log).toHaveBeenCalledWith(error)
-      }
+      const pluginName = 'error-plugin'
+
+      await expect(page.enhance([{
+        name: pluginName,
+        value: jest.fn().mockRejectedValue(error)
+      }])).rejects.toThrowError(`[${pluginName}] execute extendPageData failed.`)
+
+      expect(console.log).toHaveBeenCalledWith(error)
     })
   })
 })
-

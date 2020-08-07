@@ -10,7 +10,7 @@ Headers automatically get anchor links applied. Rendering of anchors can be conf
 
 Internal links are converted to `<router-link>` for SPA navigation. Also, every `README.md` or `index.md` contained in each sub-directory will automatically be converted to `index.html`, with corresponding URL `/`.
 
-Given the following directory structure:
+For example, given the following directory structure:
 
 ```
 .
@@ -35,9 +35,9 @@ And providing you are in `foo/one.md`:
 [bar - four](../bar/four.html) <!-- Or you can append .html -->
 ```
 
-### Redirection for URLs <Badge text="1.0.0-alpha.37"/>
+### Redirection for URLs
 
-VuePress supports redirecting to clean links. If a link `/foo` is not found, VuePress will look for a existing `/foo/` or `/foo.html`. Conversely, when one of `/foo/` or `/foo.html` is not found, VuePress will also try the other. With this feature, we can customize your website’s URLs with the official plugin [vuepress-plugin-clean-urls](https://vuepress.github.io/plugins/clean-urls/).
+VuePress supports redirecting to clean links. If a link `/foo` is not found, VuePress will look for a existing `/foo/` or `/foo.html`. Conversely, when one of `/foo/` or `/foo.html` is not found, VuePress will try the other. With this feature, we can customize your website’s URLs with the official plugin [vuepress-plugin-clean-urls](https://vuepress.github.io/plugins/clean-urls/).
 
 ::: tip
 Regardless of whether the permalink and clean-urls plugins are used, your relative path should be defined by the current file structure. In the above example, even though you set the path of `/foo/one.md` to `/foo/one/`, you should still access `/foo/two.md` via `./two.md`.
@@ -45,7 +45,7 @@ Regardless of whether the permalink and clean-urls plugins are used, your relati
 
 ### External Links
 
-Outbound links automatically gets `target="_blank" rel="noopener noreferrer"`:
+Outbound links automatically get `target="_blank" rel="noopener noreferrer"`:
 
 - [vuejs.org](https://vuejs.org)
 - [VuePress on GitHub](https://github.com/vuejs/vuepress)
@@ -65,7 +65,7 @@ lang: en-US
 
 This data will be available to the rest of the page, along with all custom and theming components.
 
-For more details, check out the [Frontmatter](./frontmatter.md) page.
+For more details, see [Frontmatter](./frontmatter.md).
 
 ## GitHub-Style Tables
 
@@ -99,7 +99,7 @@ For more details, check out the [Frontmatter](./frontmatter.md) page.
 
 :tada: :100:
 
-A list of all emojis available can be found [here](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json).
+A [list of all emojis](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json) is available.
 
 ## Table of Contents
 
@@ -117,13 +117,16 @@ A list of all emojis available can be found [here](https://github.com/markdown-i
 
 <!--lint enable no-shortcut-reference-link no-undefined-references-->
 
-Rendering of TOC can be configured using the [`markdown.toc`](../config/README.md#markdown-toc) option.
+Rendering of the TOC can be configured using the [`markdown.toc`](../config/README.md#markdown-toc) option.
 
 ## Custom Containers <Badge text="default theme"/>
 
+Custom containers can be defined by their types, titles, and contents.
+
+### Default Title
 **Input**
 
-```
+```md
 ::: tip
 This is a tip
 :::
@@ -134,6 +137,10 @@ This is a warning
 
 ::: danger
 This is a dangerous warning
+:::
+
+::: details
+This is a details block, which does not work in IE / Edge
 :::
 ```
 
@@ -151,16 +158,35 @@ This is a warning
 This is a dangerous warning
 :::
 
-You can also customize the title of the block:
+::: details
+This is a details block, which does not work in That is / Edge
+:::
 
-```
+### Custom Title
+**Input**
+
+````md
 ::: danger STOP
 Danger zone, do not proceed
 :::
+
+::: details Click me to view the code
+```js
+console.log('Hello, VuePress!')
 ```
+:::
+````
+
+**Output**
 
 ::: danger STOP
 Danger zone, do not proceed
+:::
+
+::: details Click me to view the code
+```js
+console.log('Hello, VuePress!')
+```
 :::
 
 **Also see:**
@@ -219,7 +245,7 @@ export default {
 </ul>
 ```
 
-Check out [the list of valid languages](https://prismjs.com/#languages-list) on the Prism site.
+A [list of valid languages](https://prismjs.com/#languages-list) is available on Prism’s site.
 
 ## Line Highlighting in Code Blocks
 
@@ -244,6 +270,46 @@ export default {
   data () {
     return {
       msg: 'Highlighted!'
+    }
+  }
+}
+```
+
+In addition to a single line, you can also specify multiple single lines, ranges, or both:
+
+- Line ranges: for example `{5-8}`, `{3-10}`, `{10-17}`
+- Multiple single lines: for example `{4,7,9}`
+- Line ranges and single lines: for example `{4,7-13,16,23-27,40}`
+
+**Input**
+
+````
+``` js{1,4,6-7}
+export default { // Highlighted
+  data () {
+    return {
+      msg: `Highlighted!
+      This line isn't highlighted,
+      but this and the next 2 are.`,
+      motd: 'VuePress is awesome',
+      lorem: 'ipsum',
+    }
+  }
+}
+```
+````
+
+**Output**
+
+``` js{1,4,6-8}
+export default { // Highlighted
+  data () {
+    return {
+      msg: `Highlighted!
+      This line isn't highlighted,
+      but this and the next 2 are.`,
+      motd: 'VuePress is awesome',
+      lorem: 'ipsum',
     }
   }
 }
@@ -293,7 +359,7 @@ module.exports = {
   }
 </style>
 
-## Import Code Snippets <Badge text="beta" type="warn"/>
+## Import Code Snippets <Badge text="beta" type="warning"/>
 
 You can import code snippets from existing files via following syntax:
 
@@ -325,6 +391,29 @@ It also supports [line highlighting](#line-highlighting-in-code-blocks):
 Since the import of the code snippets will be executed before webpack compilation, you can’t use the path alias in webpack. The default value of `@` is `process.cwd()`.
 :::
 
+You can also use a [VS Code region](https://code.visualstudio.com/docs/editor/codebasics#_folding) to only include the corresponding part of the code file. You can provide a custom region name after a `#` following the filepath (`snippet` by default):
+
+**Input**
+
+``` md
+<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js#snippet{1}
+```
+
+**Code file**
+
+<!--lint disable strong-marker-->
+
+<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js
+
+<!--lint enable strong-marker-->
+
+**Output**
+
+<!--lint disable strong-marker-->
+
+<<< @/../@vuepress/markdown/__tests__/fragments/snippet-with-region.js#snippet{1}
+
+<!--lint enable strong-marker-->
 
 ## Advanced Configuration
 

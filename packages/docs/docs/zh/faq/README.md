@@ -12,12 +12,12 @@ sidebar: auto
 
 描述 stylus 编译器编译顺序的简单图表如下：
 
-@flowstart <br />
-阶段1=>操作: palette.styl <br />
-阶段2=>操作: 默认 app 样式 <br />
-阶段3=>操作: index.styl <br />
+@flowstart
+stage1=>operation: palette.styl
+stage2=>operation: 默认 app 样式
+stage3=>operation: index.styl
 
-阶段1->阶段2->阶段3 <br />
+stage1->stage2->stage3
 @flowend
 
 <br>
@@ -54,7 +54,7 @@ module.exports = (options, ctx) => ({
 **比如：**
 
 - [@vuepress/plugin-register-components](https://github.com/vuejs/vuepress/tree/master/packages/@vuepress/plugin-register-components/index.js#L24)：在客户端自动注册组件
-- [@vuepress/plugin-pagination](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/plugin-pagination/index.js#L14)：自动注入 Vue 插件来拓展客户端 API
+- [@vuepress/plugin-google-analytics](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/plugin-google-analytics/enhanceAppFile.js)：自动配置 Google Analytics
 
 ## 什么时候需要使用 `clientDynamicModules`?
 
@@ -63,5 +63,5 @@ module.exports = (options, ctx) => ({
 
 **比如：**
 
-- [@vuepress/plugin-blog](https://github.com/ulivz/vuepress-plugin-blog/blob/master/src/index.ts#L167)：使用编译期元数据生成一些博客相关的动态模块并通过 `enhanceAppFiles` 将他们在客户端初始化
+- [@vuepress/plugin-blog](https://github.com/vuepressjs/vuepress-plugin-blog/blob/master/src/node/index.ts#L208)：使用编译期元数据生成一些博客相关的动态模块并通过 `enhanceAppFiles` 将他们在客户端初始化
 

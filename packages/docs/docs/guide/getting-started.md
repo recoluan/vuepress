@@ -1,66 +1,87 @@
 # Getting Started
 
-::: warning COMPATIBILITY NOTE
-VuePress requires Node.js >= 8.
+::: warning Prerequisite
+VuePress requires [Node.js](https://nodejs.org/en/) >= 8.6.
 :::
 
-## Global Installation
+## Quick Start
 
-If you only want to play around with VuePress, you can install it globally:
+The fastest way to get your VuePress project setup is to use our create-vuepress tool which will help scaffold the basic VuePress site structure for you.
 
-``` bash
-# install globally
-yarn global add vuepress # OR npm install -g vuepress
+To use it, open up your terminal in the desired directory and run the following command:
 
-# create a markdown file
-echo '# Hello VuePress' > README.md
-
-# start writing
-vuepress dev
-
-# build
-vuepress build
+```bash
+yarn create vuepress [directoryName]
+# OR npx create-vuepress [directoryName]
 ```
 
-## Inside an Existing Project
+You will be prompted to choose which boilerplate you prefer. For most users, the `docs` boilerplate is what you will want.
 
-If you have an existing project and would like to keep documentation inside the project, you should install VuePress as a local dependency. This setup also allows you to use CI or services like Netlify for automatic deployment on push.
+You will then have the opportunity to configure your VuePress site’s metadata such as:
 
-``` bash
-# install as a local dependency
-yarn add -D vuepress # OR npm install -D vuepress
+- Project Name
+- Description
+- Maintainer Email
+- Maintainer Name
+- Repository URL
 
-# create a docs directory
-mkdir docs
-# create a markdown file
-echo '# Hello VuePress' > docs/README.md
-```
+Once it is complete, you should see your new VuePress site scaffolded in your directory! :tada:
 
-::: warning
-We currently recommend using [Yarn](https://yarnpkg.com/en/) instead of npm when installing VuePress into an existing project that has webpack 3.x as a dependency, because npm fails to generate the correct dependency tree in this case.
-:::
+## Manual Setup
 
-Then, add some scripts to `package.json`:
+This section will help you build a basic VuePress documentation site from ground up. If you already have an existing project and would like to keep documentation inside the project, start from Step 3.
 
-``` json
-{
-  "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
-  }
-}
-```
+1. Create and change into a new directory
 
-You can now start writing with:
+   ``` bash
+   mkdir vuepress-starter && cd vuepress-starter
+   ```
 
-``` bash
-yarn docs:dev # OR npm run docs:dev
-```
+2. Initialize with your preferred package manager
 
-To generate static assets, run:
+   ``` bash
+   yarn init # npm init
+   ```
 
-``` bash
-yarn docs:build # Or npm run docs:build
-```
+3. Install VuePress locally
 
-By default, the built files will be in `.vuepress/dist`, which can be configured via the `dest` field in `.vuepress/config.js`. The built files can be deployed to any static file server. See [Deployment Guide](deploy.md) for guides on deploying to popular services.
+   ``` bash
+   yarn add -D vuepress # npm install -D vuepress
+   ```
+
+   ::: warning
+   We currently recommend using [Yarn](https://classic.yarnpkg.com/lang/en/) instead of npm when installing VuePress into an existing project that has webpack 3.x as a dependency, because npm fails to generate the correct dependency tree in this case.
+   :::
+
+4. Create your first document
+
+   ``` bash
+   mkdir docs && echo '# Hello VuePress' > docs/README.md
+   ```
+
+5. Add some [scripts](https://classic.yarnpkg.com/en/docs/package-json#toc-scripts) to `package.json`
+
+   This step is optional but highly recommended, the rest of the documentation will assume those scripts being added.
+
+   ``` json
+   {
+     "scripts": {
+       "docs:dev": "vuepress dev docs",
+       "docs:build": "vuepress build docs"
+     }
+   }
+   ```
+
+6. Serve the documentation site in the local server
+
+   ``` bash
+   yarn docs:dev # npm run docs:dev
+   ```
+
+   VuePress will start a hot-reloading development server at [http://localhost:8080](http://localhost:8080).
+
+By now, you should have a basic but functional VuePress documentation site. Next, learn about VuePress’ recommended [directory structure](directory-structure.html) and the basics of [configuration](basic-config.html) in VuePress.
+
+Once you’re familiar with those concepts mentioned above, learn how to enrich your content with [static assets](assets.html), [Markdown extensions](markdown.html) and [vue components](using-vue.html).
+
+And when your documentation site starts to take shape, be sure to read about [multi-language support](i18n.html) and the [deployment guide](deploy.html).

@@ -14,6 +14,32 @@
 }
 ```
 
+## 云开发 CloudBase
+
+[云开发 CloudBase](https://cloudbase.net/) 是一个云原生一体化的 Serverless 云平台，支持静态网站、容器等多种托管能力，并提供简便的部署工具 [CloudBase Framework](https://cloudbase.net/framework.html) 来一键部署应用。
+
+1. 全局安装 CloudBase  CLI
+
+```
+npm install -g @cloudbase/cli
+```
+
+2. 在项目根目录运行以下命令一键部署 VuePress 应用：
+
+```
+cloudbase login
+cloudbase init --without-template
+cloudbase framework:deploy
+```
+
+   CloudBase CLI 首先会跳转到控制台进行登录授权，然后将会交互式进行确认
+
+   确认信息后会立即进行部署，部署完成后，可以获得一个自动 SSL，CDN 加速的网站应用，你也可以搭配使用 Github Action 来持续部署 Github 上的 VuePress 应用。
+
+   也可以使用 `cloudbase init --template vuepress` 快速创建和部署一个新的 VuePress 应用
+
+   更多详细信息请查看 CloudBase Framework 的[部署项目示例](https://github.com/TencentCloudBase/cloudbase-framework#%E9%A1%B9%E7%9B%AE%E7%A4%BA%E4%BE%8B)
+
 ## GitHub Pages
 
 1. 在 `docs/.vuepress/config.js` 中设置正确的 `base`。
@@ -65,7 +91,7 @@ cd -
    如果你打算发布到 `https://<USERNAME or GROUP>.github.io/<REPO>/`（也就是说你的仓库在 `https://github.com/<USERNAME>/<REPO>`），则将 `base` 设置为 `"/<REPO>/"`。
 
 2. 在项目的根目录创建一个名为 `.travis.yml` 的文件；
-3. 在本地执行 `npm install` 并且在提交中包含 `package-lock.json` 因为 `npm ci` 需要它才能正确执行.
+3. 在本地执行 `yarn` 或 `npm install` 并且提交生成的 lock 文件（即 `yarn.lock` 或 `package-lock.json`）；
 4. 使用 GitHub Pages 部署提供程序模板并遵循 [Travis 文档](https://docs.travis-ci.com/user/deployment/pages/)。
 
 ``` yaml
@@ -73,15 +99,15 @@ language: node_js
 node_js:
   - lts/*
 install:
-  - npm ci
+  - yarn install # npm ci
 script:
-  - npm run docs:build
+  - yarn docs:build # npm run docs:build
 deploy:
   provider: pages
-  skip-cleanup: true
+  skip_cleanup: true
   local_dir: docs/.vuepress/dist
-  github-token: $GITHUB_TOKEN # a token generated on github allowing travis to push code on you repository
-  keep-history: true
+  github_token: $GITHUB_TOKEN # 在 GitHub 中生成，用于允许 Travis 向你的仓库推送代码。在 Travis 的项目设置页面进行配置，设置为 secure variable
+  keep_history: true
   on:
     branch: master
 ```
@@ -106,8 +132,8 @@ pages:
    - node_modules/
 
  script:
- - npm install
- - npm run docs:build
+ - yarn install # npm install
+ - yarn docs:build # npm run docs:build
  artifacts:
    paths:
    - public
@@ -119,7 +145,7 @@ pages:
 
 1. 在 Netlify 中, 创建一个新的 GitHub 项目，使用以下设置：
 
-- **Build Command:** `npm run build:docs` 或者 `yarn build:docs`
+- **Build Command:** `yarn docs:build` 或者 `npm run docs:build`
 - **Publish directory:** `docs/.vuepress/dist`
 
 2. 点击 deploy 按钮！
@@ -210,6 +236,10 @@ git push heroku master
 heroku open
 ```
 
-## Now
+## Vercel
 
-请查看 [用 Now 部署一个 VuePress 的示例站点](https://zeit.co/examples/vuepress/).
+请查看 [用 Vercel 创建和部署一个 VuePress 应用](https://vercel.com/guides/deploying-vuepress-to-vercel)。
+
+## 21 云盒子
+
+请查看 [21 云盒子 - 部署一个 VuePress 静态网页](https://www.21yunbox.com/docs/#/deploy-vuepress)。

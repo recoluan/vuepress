@@ -1,11 +1,7 @@
 <script>
 export default {
-  render (h) {
-    return h('div', { class: 'carbon-ads' })
-  },
-  mounted () {
-    this.load()
-  },
+  name: 'CarbonAds',
+
   watch: {
     '$route' (to, from) {
       if (
@@ -20,13 +16,22 @@ export default {
       }
     }
   },
+
+  mounted () {
+    this.load()
+  },
+
   methods: {
     load () {
       const s = document.createElement('script')
       s.id = '_carbonads_js'
-      s.src = `//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg`
+      s.src = `//cdn.carbonads.com/carbon.js?serve=CEBDT27Y&placement=vuejsorg`
       this.$el.appendChild(s)
     }
+  },
+
+  render (h) {
+    return h('div', { class: 'carbon-ads' })
   }
 }
 </script>

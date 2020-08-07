@@ -90,7 +90,7 @@ module.exports = {
 - 类型: `Function`
 - 默认值: `() => true`
 
-一个函数，用来控制对于哪些文件，是需要生成 `<link rel="prefetch">` 资源提示的。请参考 [shouldPrefetch](https://ssr.vuejs.org/zh/api/#shouldpreload)。
+一个函数，用来控制对于哪些文件，是需要生成 `<link rel="prefetch">` 资源提示的。请参考 [shouldPrefetch](https://ssr.vuejs.org/zh/api/#shouldprefetch)。
 
 ### cache
 
@@ -138,23 +138,35 @@ Specify which pattern of files you want to be resolved.
 
 ### palette.styl
 
-如果要对[默认预设](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/core/lib/client/style/config.styl)的样式应用简单的颜色替换，或者定义一些颜色变量供以后使用，你可以创建一个 `.vuepress/styles/palette.styl` 文件。
+如果要对[默认预设](https://github.com/vuejs/vuepress/blob/master/packages/@vuepress/core/lib/client/style/config.styl)的样式进行简单的替换，或者定义一些变量供以后使用，你可以创建一个 `.vuepress/styles/palette.styl` 文件。
 
-你可以调整一些颜色变量:
+你可以调整的一些变量如下:
 
 ``` stylus
-// 默认值
+// 颜色
 $accentColor = #3eaf7c
 $textColor = #2c3e50
 $borderColor = #eaecef
 $codeBgColor = #282c34
+$arrowBgColor = #ccc
 $badgeTipColor = #42b983
 $badgeWarningColor = darken(#ffe564, 35%)
 $badgeErrorColor = #DA5961
+
+// 布局
+$navbarHeight = 3.6rem
+$sidebarWidth = 20rem
+$contentWidth = 740px
+$homePageWidth = 960px
+
+// 响应式变化点
+$MQNarrow = 959px
+$MQMobile = 719px
+$MQMobileNarrow = 419px
 ```
 
 ::: danger Note
-你应该**只在**这个文件中写入颜色变量。因为 `palette.styl` 将在根的 stylus 配置文件的末尾引入，作为配置，它将被多个文件使用，所以一旦你在这里写了样式，你的样式就会被多次复制。
+你应该**只在**这个文件中定义变量。因为 `palette.styl` 将在根的 stylus 配置文件的末尾引入，作为配置，它将被多个文件使用，所以一旦你在这里写了样式，你的样式就会被多次复制。
 :::
 
 ### index.styl
@@ -166,6 +178,10 @@ VuePress 提供了一种添加额外样式的简便方法。你可以创建一�
   font-size 30px
 }
 ```
+
+**参考:**
+
+- [为什么不能把 `palette.styl` 和 `index.styl` 合并到一个 API?](../faq/#为什么不能把-palette-styl-和-index-styl-合并到一个-api)
 
 ## 主题
 
@@ -331,14 +347,14 @@ module.exports = {
 - 类型: `Object`
 - 默认值: `{}`
 
-加载 `*.scss` 文件的 [sass-loader](https://github.com/postcss/postcss-loader) 的选项。
+加载 `*.scss` 文件的 [sass-loader](https://github.com/webpack-contrib/sass-loader) 的选项。
 
 ### sass
 
 - 类型: `Object`
 - 默认值: `{ indentedSyntax: true }`
 
-加载 `*.sass` 文件的 [sass-loader](https://github.com/postcss/postcss-loader) 的选项。
+加载 `*.sass` 文件的 [sass-loader](https://github.com/webpack-contrib/sass-loader) 的选项。
 
 ### less
 

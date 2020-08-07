@@ -1,4 +1,4 @@
-# 主题的继承 <Badge type="warn" text="beta" />
+# 主题的继承 <Badge type="warning" text="beta" />
 
 ## 动机
 
@@ -129,7 +129,7 @@ theme
 
 ```vue
 <script>
-import Home from '@theme/components/Navbar.vue'
+import Navbar from '@theme/components/Navbar.vue'
 // ...
 </script>
 ```
